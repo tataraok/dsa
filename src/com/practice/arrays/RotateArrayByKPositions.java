@@ -5,7 +5,7 @@ public class RotateArrayByKPositions {
 	public static void main(String[] args) {
 		Solution2 solution = new Solution2();
 		int[] nums = new int[] {1,2,3};
-		int k = 4;
+		int k = 1;
 		System.out.println("Before rotation: ");
 		ArraysUtil.print(nums);
 		solution.rightRotate(nums, k);
@@ -53,9 +53,8 @@ class Solution2 {
     }*/
 	public void rightRotate(int[] nums, int k) {
 	    int n = nums.length;
-        if(n < k){
-            k = (n%k)-1;
-        }
+        k = k%n;
+        if(k==0) return;
         reverse(nums,0,n-k-1);
 	    reverse(nums,n-k,n-1);
 	    reverse(nums,0,n-1); 		
@@ -73,9 +72,9 @@ class Solution2 {
 	}
 
 	public void leftRotate(int[] nums, int k) {
-		if(nums.length <= k)
-			return;
 		int n = nums.length;
+        k = k%n;
+        if(k==0) return;
 		reverse(nums,0,k-1);
 		reverse(nums,k,n-1);
 		reverse(nums,0,n-1);
