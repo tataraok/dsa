@@ -1,13 +1,47 @@
 package com.practice.arrays;
 
-import java.util.Arrays;
 import java.util.HashSet;
 
+/**
+ * Problem Statement:
+ * Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2,3,1]
+
+Output: true
+
+Explanation:
+
+The element 1 occurs at the indices 0 and 3.
+
+Example 2:
+
+Input: nums = [1,2,3,4]
+
+Output: false
+
+Explanation:
+
+All elements are distinct.
+
+Example 3:
+
+Input: nums = [1,1,1,3,3,4,3,2,4,2]
+
+Output: true
+
+ * @author Tata Rao Karri
+ *
+ */
 public class DuplicateChecker {
 
 	public static void main(String[] args) {
 		DuplicateChecker solution = new DuplicateChecker();
-		boolean isDuplicateExists = solution.containsDuplicate(new int[] {1,2,3,5});
+		boolean isDuplicateExists = solution.containsDuplicate(new int[] {1,2,3,5,1});
 		if(isDuplicateExists)
 			System.out.println("Yes");
 		else
@@ -17,8 +51,8 @@ public class DuplicateChecker {
 	 public boolean containsDuplicate(int[] nums) {
 		 //Adding elements to set and finding duplicates give O(n) time and space complexity
 		 HashSet<Integer> set = new HashSet<>();
-		 for(int i=0;i<nums.length;i++) {
-			 if(!set.add(nums[i])) {
+		 for(int num : nums) {
+			 if(!set.add(num)) {
 				 return true;
 			 }
 		 }
