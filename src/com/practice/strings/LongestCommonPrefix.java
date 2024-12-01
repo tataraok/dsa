@@ -32,8 +32,8 @@ public class LongestCommonPrefix {
 
 	public static void main(String[] args) {
 		LongestCommonPrefix solution = new LongestCommonPrefix();
-		System.out.println(solution.longestCommonPrefix(new String[] {"flower","flow","flight"}));
-		System.out.println(solution.longestCommonPrefix(new String[] {"dog","racecar","car"}));
+		System.out.println(solution.longestCommonPrefixOptimal(new String[] {"flower","flow","flight"}));
+		System.out.println(solution.longestCommonPrefixOptimal(new String[] {"dog","racecar","dar"}));
 
 	}
 	public String longestCommonPrefix(String[] strs) {
@@ -42,20 +42,31 @@ public class LongestCommonPrefix {
 		for(String s : strs) {
 			maxCommonPrefxSize = Math.min(maxCommonPrefxSize, s.length());
 		}
-		int a;
+		char c = '\0';
 		for(int i=0;i<maxCommonPrefxSize;i++) {
-			a = -1;
 			for(int j=0;j<strs.length;j++) {
-				if(a!=-1 && a!=(int)strs[j].charAt(i))
+				if(j!=0 && c!=strs[j].charAt(i))
 					return builder.toString();
-				else
-					a = (int)strs[j].charAt(i);
+				else if(j==0)
+					c = strs[j].charAt(i);
 				if(j==strs.length-1)
-					builder.append(strs[j].charAt(i));
+					builder.append(c);
 			}
 			
 		}
         return builder.toString();
+    }
+	
+	//100% beats in time complexity in leetcode
+	public String longestCommonPrefixOptimal(String[] strs) {
+		if(strs==null || strs.length==0) return "";
+		String prefix = strs[0];
+		for(int i=1;i<strs.length;i++) {
+			while(!strs[i].startsWith(prefix)) {
+				prefix = prefix.substring(0,prefix.length()-1);
+			}
+		}
+        return prefix;
     }
 
 }
