@@ -47,37 +47,24 @@ public class ValidPalindrome {
 
 	}
 	public boolean isPalindrome(String s) {
-		s = s.toLowerCase();
-		/*StringBuilder builder = new StringBuilder();
-		for(char c : s.toCharArray()) {
-			if(((int)c >=97 && (int)c <=122) || ((int)c >=48 && (int)c <=57)) {
-				builder.append(c);
-			}
-		}
-		for(int i=0,j=builder.length()-1;i<j;i++,j--) {
-			if(builder.charAt(i)!=builder.charAt(j)) {
-				return false;
-			}
-		}*/
 		int i=0;
 		int j = s.length()-1;
 		while(i<j) {
-			
-			while(!validAlphaNumeric(s.charAt(i)) && i<j) {
+			char start = s.charAt(i);
+			char end = s.charAt(j);
+			if(!Character.isLetterOrDigit(start)) {
 				i++;
 			}
-			while(!validAlphaNumeric(s.charAt(j)) && i<j) {
+			else if(!Character.isLetterOrDigit(end)) {
+				j--;
+			}else {
+				if(Character.toLowerCase(start)!=Character.toLowerCase(end))
+					return false;
+				i++;
 				j--;
 			}
-			if(s.charAt(i)!=s.charAt(j))
-				return false;
-			i++;
-			j--;
 		}
         return true;
     }
-	private boolean validAlphaNumeric(char c) {
-		return ((int)c >=97 && (int)c <=122) || ((int)c >=48 && (int)c <=57);
-	}
 
 }

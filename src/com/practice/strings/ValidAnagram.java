@@ -37,8 +37,55 @@ public class ValidAnagram {
 	public static void main(String[] args) {
 		ValidAnagram solution = new ValidAnagram();
 		System.out.println(solution.isAnagram("rat", "car"));
+		System.out.println(solution.isAnagram("anagram", "nagaram"));
+		System.out.println(solution.isAnagram("nl", "cx"));
 	}
 	public boolean isAnagram(String s, String t) {
+		//return isAnagramUsingMap(s,t);
+		return isAnagramUsingArray(s,t);
+		//return isAnagramUsingDynamicBalance(s,t);
+    }
+	
+	
+	private boolean isAnagramUsingArray(String s, String t) {
+		if(s.length()!=t.length())
+			return false;
+		int alpha[] = new int[26];
+		int n = s.length();
+		for(int i=0;i<n;i++) {
+			alpha[s.charAt(i) - 'a']++;
+			alpha[t.charAt(i) - 'a']--;
+		}
+		for(int i=0;i<n;i++) {
+			if(alpha[s.charAt(i) - 'a']!=0)
+				return false;;
+		}
+		return true;
+	}
+	
+	private boolean isAnagramUsingDynamicBalance(String s, String t) {
+		if(s.length()!=t.length())
+			return false;
+		int alpha[] = new int[26];
+		int n = s.length();
+		int balance = 0;
+		for(int i=0;i<n;i++) {
+			if(alpha[s.charAt(i) - 'a']==0)
+				balance++;
+			alpha[s.charAt(i) - 'a']++;
+			if(alpha[s.charAt(i) - 'a']==0)
+				balance--;
+			
+			if(alpha[t.charAt(i) - 'a']==0)
+				balance++;
+			alpha[t.charAt(i) - 'a']--;
+			if(alpha[t.charAt(i) - 'a']==0)
+				balance--;
+		}
+		return balance==0;
+	}
+	
+	private boolean isAnagramUsingMap(String s, String t) {
 		if(s.length()!=t.length())
 			return false;
 		HashMap<Character,Integer> map = new HashMap<>();
@@ -54,6 +101,6 @@ public class ValidAnagram {
 		if(map.isEmpty())
 			return true;
 		return false;
-    }
+	}
 
 }

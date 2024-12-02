@@ -1,10 +1,13 @@
 package com.practice.strings;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /*
  * Problem Statement:
@@ -47,7 +50,10 @@ public class FirstUniqueCharacter {
 
 	public static void main(String[] args) {
 		FirstUniqueCharacter solution = new FirstUniqueCharacter();
+		//int index = solution.firstUniqChar("loveleetcode");
 		int index = solution.firstUniqChar("leetcode");
+		//int index = solution.firstUniqChar("aadadaad");
+		//int index = solution.firstUniqChar("aabb");
 		if(index==-1) {
 			System.out.println("No non-repeating character found");
 		}else {
@@ -55,22 +61,33 @@ public class FirstUniqueCharacter {
 		}
 
 	}
+	
 	public int firstUniqChar(String s) {
-		Map<Character,List<Integer>> map = new LinkedHashMap<>();
+		int[] frequency = new int[26];
+		for(char c : s.toCharArray()) {
+			frequency[c-'a']++;
+		}
 		for(int i=0;i<s.length();i++) {
-			if(map.containsKey(s.charAt(i))) {
-				map.get(s.charAt(i)).add(i);
-			}else {
-				List<Integer> indexes = new LinkedList<>();
-				indexes.add(i);
-				map.put(s.charAt(i), indexes);
-			}
+			if(frequency[s.charAt(i) - 'a']==1) {
+				return i;
+			}			
 		}
-		for(Character c : map.keySet()) {			
-			if(map.get(c).size()==1) return map.get(c).get(0);
-		}
-		
 		return -1;
     }
+	
+	//Using Map - O(n) time and space complexity
+	/*public int firstUniqChar(String s) {
+		Map<Character,Integer> map = new HashMap<>();
+		for(char c : s.toCharArray()) {
+			map.compute(c, (k,v)-> v==null? 1: v+1);
+		}
+		for(int i=0;i<s.length();i++) {
+			if(map.get(s.charAt(i))==1) {
+				return i;
+			}			
+		}
+		return -1;
+    }
+	*/
 
 }
