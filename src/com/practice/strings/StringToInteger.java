@@ -98,56 +98,50 @@ public class StringToInteger {
 
 	public static void main(String[] args) {
 		StringToInteger solution = new StringToInteger();
-		/*System.out.println(solution.myAtoi("42"));
+		System.out.println(solution.myAtoi("42"));
+		System.out.println(solution.myAtoi(" "));
 		System.out.println(solution.myAtoi("-042"));
 		System.out.println(solution.myAtoi("1337c0d3"));
 		System.out.println(solution.myAtoi("0-1"));
-		System.out.println(solution.myAtoi("words and 987"));*/
-		System.out.println(solution.myAtoi("-2147483648"));
+		System.out.println(solution.myAtoi("words and 987"));
+		System.out.println(solution.myAtoi("-2147483649"));
+		System.out.println(solution.myAtoi("21474836460"));
 
 	}
 	
 	public int myAtoi(String s) {
-		s = s.trim();
-		if(s.length()==0)
-			return 0;
-		boolean isNegative = false;		
-		if(s.length()>1) {
-			isNegative = s.charAt(0)=='-';
-			if(s.charAt(0)=='-' || s.charAt(0)=='+'){
-				s = s.substring(1);	
-			}						
+		int n = s.length();
+        if(n==0)
+            return 0;
+        int i=0;
+		while(i<n && s.charAt(i)==' ') {
+				i++;
 		}
-		
-		int roundedValue = parseLeadingInteger(s,isNegative);
-		
-        return roundedValue;
-    }
-	
-	private int parseLeadingInteger(String s, boolean isNegative) {
-		int i=0;
-		StringBuilder builder = new StringBuilder();
-		while(i<s.length() && isDigit(s.charAt(i))) {
-			builder.append(s.charAt(i));
-			long val = Long.parseLong(builder.toString());
-			val = isNegative ? -1*val : val;
-			if(val>Integer.MAX_VALUE) {
-				return Integer.MAX_VALUE;
-			}else if(val<=Integer.MIN_VALUE) {
-				return Integer.MIN_VALUE;
-			}
+		boolean isPositive = true;
+		if(i<n && s.charAt(i)=='-') {
+			isPositive = false;
 			i++;
 		}
-		if(builder.length()==0)
-			return 0;
-		int value = Integer.parseInt(builder.toString());
-		return isNegative ? -1*value : value;
-	}
-	private boolean isDigit(char charAt) {
-		if((int)charAt>47 && (int)charAt<58) {
-			return true;
+		else if(i<n && s.charAt(i)=='+') {
+			isPositive = true;
+			i++;
 		}
-		return false;
-	}
+		while(i<n && s.charAt(i) == '0')
+			i++;
+		long integerVal = 0l;		
+		while(i<n ) {
+			if(s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+				integerVal = (integerVal*10) + (s.charAt(i) - '0');	
+			}else {
+				break;
+			}
+			if(isPositive && integerVal > Integer.MAX_VALUE)
+				return Integer.MAX_VALUE;
+			else if(!isPositive && integerVal*-1 <= Integer.MIN_VALUE)
+				return Integer.MIN_VALUE;				
+			i++;
+		}			
+        return isPositive ? (int)integerVal : (int)integerVal * -1;
+	}	
 
 }
