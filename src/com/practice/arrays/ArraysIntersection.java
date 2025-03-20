@@ -34,24 +34,26 @@ public class ArraysIntersection {
 
 	public static void main(String[] args) {
 		ArraysIntersection solution = new ArraysIntersection();
-		int[] result = solution.intersect(new int[] {1,2,2,1}, new int[] {2,2});
+		int[] result = solution.intersect(new int[] {1,2,2,1}, new int[] {2,2,2});
+		ArraysUtil.print(result);
+		result = solution.intersect(new int[] {4,9,5}, new int[] {9,9,4,8,4});
 		ArraysUtil.print(result);
 	}
-	public int[] intersect(int[] nums1, int[] nums2) {		
-		List<Integer> intersects = null;
+	public int[] intersect(int[] nums1, int[] nums2) {
+
+		List<Integer> intersects = new ArrayList<>();		
 		if(nums1.length<nums2.length) {
-			intersects = getIntersectElements(nums1, nums2);
+			getIntersectElements(nums1, nums2,intersects);
 		}else{
-			intersects = getIntersectElements(nums2, nums1);
+			getIntersectElements(nums2, nums1,intersects);
 		}
 		int[] result = new int[intersects.size()];
 		for(int i=0;i<result.length;i++) {
 			result[i] = intersects.get(i);
 		}
-        return result;
+        return result; 
     }
-	private List<Integer> getIntersectElements(int[] smallArray, int[] largeArray) {
-		List<Integer> intersects = new ArrayList<>();
+	private List<Integer> getIntersectElements(int[] smallArray, int[] largeArray, List<Integer> intersects) {
 		Map<Integer,Integer> map = new HashMap<Integer,Integer>();
 		for(int i=0;i<largeArray.length;i++) {
 			map.compute(largeArray[i], (k,v) -> v==null ? 1 : v+1);

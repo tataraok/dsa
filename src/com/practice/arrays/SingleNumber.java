@@ -66,7 +66,7 @@ public class SingleNumber {
 	 * The sane program can be optimized at space level. Instead of using hashset data structure, we can use XOR (^) which returns same number when we do XOR with 0, 
 	 * and returns 0 when we do XOR on itself.
 	 * Ex : 2 ^ 0 = 2
-	 *      3 ^ 3 = 3
+	 *      3 ^ 3 = 0
 	 *      4 ^ 1 ^ 2 ^ 1 ^ 2 = 4
 	 */
 	public int singleNumber(int[] nums) {

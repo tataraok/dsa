@@ -49,3 +49,6 @@ public class ReverseInteger {
     }
 
 }
+/*
+ * In SPM software, a calc service wrongly calculated the commission values, it populated all commission values in reverse. You need to correct them. Write a code to fix this.
+ */

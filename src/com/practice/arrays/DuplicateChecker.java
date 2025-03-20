@@ -41,7 +41,7 @@ public class DuplicateChecker {
 
 	public static void main(String[] args) {
 		DuplicateChecker solution = new DuplicateChecker();
-		boolean isDuplicateExists = solution.containsDuplicate(new int[] {1,2,3,5,1});
+		boolean isDuplicateExists = solution.containsDuplicate(new int[] {1,1,1,3,3,4,3,2,4,2,1});
 		if(isDuplicateExists)
 			System.out.println("Yes");
 		else
