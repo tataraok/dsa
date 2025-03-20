@@ -8,12 +8,13 @@ import java.util.Queue;
 public class LongestSubStringOfKUniqueChars {
 
 	public static void main(String[] args) {
-		String input = "aabaaab";
-		int k = 2;
-		int len = getLongestSubstringLength(input, k);
+		String input = "aabacbebebe";
+		int k = 4;
+		int len = getLongestSubstringLengthOptimal(input, k);
 		System.out.println(len);
 	}
 
+	//With extra space
 	private static int getLongestSubstringLength(String input, int k) {
 		Map<Character,Integer> map = new HashMap<>();
 		Queue<Character> queue = new LinkedList<Character>();
@@ -34,6 +35,27 @@ public class LongestSubStringOfKUniqueChars {
 		if(queue.size()<k)
 			return -1;
 		return Math.max(max, i-j);
+	}
+	
+	private static int getLongestSubstringLengthOptimal(String input, int l) {
+		Map<Character,Integer> map = new HashMap<>();
+		int j = 0;
+		int max = -1;
+		int i;
+		for(i=0;i<input.length();i++) {
+			if(map.size()>l) {
+				
+				map.compute(input.charAt(j), (k,v) -> v==1 ? null : v-1);
+				j++;
+			}else {
+				map.compute(input.charAt(i), (k,v) -> v==null ? 1 : v+1);
+				max = Math.max(max, i-j+1);
+			}
+			
+		}
+		if(map.size()<l) return -1;
+		
+		return max;
 	}
 
 }
